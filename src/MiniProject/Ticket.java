@@ -1,0 +1,65 @@
+package MiniProject;
+
+import java.io.Serializable;
+
+
+
+
+public class Ticket implements Serializable {
+
+    private String name;
+
+    private String category;
+    private String description;
+    private double price;
+
+
+
+    public Ticket(){
+        this("None ","None ","None ",0);
+    }
+
+    public Ticket(String name ,String category,String description,double price){
+        setName(name);
+        setCategory(category);
+        setDescription(description);
+        setPrice(price);
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("Name:  %s\nCategory: %s\nDescription: %s\nPrice: %.2f\n",getName(),getCategory(),getDescription(),getPrice());
+    }
+}

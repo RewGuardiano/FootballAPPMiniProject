@@ -29,7 +29,7 @@
           <text value="Soccer Bookings"/>
         </properties>
       </component>
-      <component id="98832" class="javax.swing.JLabel" binding="JLViewAvailability">
+      <component id="98832" class="javax.swing.JLabel" binding="JLViewSales">
         <constraints>
           <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
@@ -37,7 +37,7 @@
           <font size="18" style="0"/>
           <horizontalAlignment value="0"/>
           <horizontalTextPosition value="0"/>
-          <text value="View Availability"/>
+          <text value="View Sales"/>
           <verticalAlignment value="0"/>
         </properties>
       </component>
@@ -61,7 +61,7 @@
           <model>
             <item value="Set Ticket"/>
             <item value="Remove Ticket"/>
-            <item value="View Ticket"/>
+            <item value="View Sales"/>
           </model>
         </properties>
       </component>

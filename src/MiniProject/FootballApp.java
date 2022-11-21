@@ -3,6 +3,7 @@ package MiniProject;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.Objects;
 
 //https://www.youtube.com/watch?v=vZfVwMCAN7Y// //Youtube video to help learn formatting of gui//
@@ -10,11 +11,13 @@ public class FootballApp extends JFrame {
     private JPanel Panel1;
     private JComboBox cobManageTicket;
     private JLabel JLTitle;
-    private JLabel JLViewAvailability;
+    private JLabel JLViewSales;
     private JLabel JLManageTicket;
     private JLabel JLICON;
     private JButton BtnViewAvailabitlity;
 
+    ArrayList<Ticket> Tickets = new ArrayList<Ticket>();
+    private Ticket tickets;
     public FootballApp() {
         setTitle("Football Bookings System");
         setSize(500, 350);
@@ -52,8 +55,8 @@ public class FootballApp extends JFrame {
                 if(Objects.equals(cobManageTicket.getSelectedItem(), "Remove Ticket"))
                     new RemoveTicket();
                 dispose();
-                if(Objects.equals(cobManageTicket.getSelectedItem(), "View Ticket"))
-                    new ViewTicket();
+                if(Objects.equals(cobManageTicket.getSelectedItem(), "View Sales"))
+                    new ViewSales();
                 dispose();
             }
         });
