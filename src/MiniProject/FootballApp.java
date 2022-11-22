@@ -50,7 +50,7 @@ public class FootballApp extends JFrame {
 
                 if(Objects.equals(cobManageTicket.getSelectedItem(), "Set Ticket"))
 
-                    new SetCategory();    //learned from yt video, https://www.youtube.com/watch?v=sEWcNtbqC0Y//
+                    new SetTicket();    //learned from yt video, https://www.youtube.com/watch?v=sEWcNtbqC0Y//
                 dispose();
                 if(Objects.equals(cobManageTicket.getSelectedItem(), "Remove Ticket"))
                     new RemoveTicket();

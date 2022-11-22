@@ -5,7 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Objects;
 
-public class SetCategory extends JFrame {
+public class SetTicket extends JFrame {
 
 
     private JPanel Panel2;
@@ -22,8 +22,9 @@ public class SetCategory extends JFrame {
     private JLabel JLEmail;
     private JLabel JLName;
     private JTextField TxtFieldName;
+    private JButton btnClear;
 
-    public SetCategory(){
+    public SetTicket(){
 
         setTitle("Set Ticket");
         setSize(500, 450);
@@ -40,7 +41,7 @@ public class SetCategory extends JFrame {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                String Tname = TxtFieldEmail.getText().toString();
+                String Tname = TxtFieldName.getText().toString();
                 String Email = TxtFieldEmail.getText().toString();
                 String TCode = TxtFieldTicketCode.getText().toString();
                 String Descript = TxtFieldDescription.getText().toString();
@@ -49,24 +50,26 @@ public class SetCategory extends JFrame {
 
 
 
-                if(Tname.equals("")){
-                    JOptionPane.showMessageDialog(null,"Invalid,Re-enter your name");
+                if(Tname.equals("")) {
+                    JOptionPane.showMessageDialog(null, "Invalid! ,Please Re-enter");
                 }
-                if(Email.equals("")){
-                    JOptionPane.showMessageDialog(null,"Invalid,Re-enter Email Address");
+                if(!Email.contains("@")||!Email.endsWith(".com")&&!Email.endsWith(".ie")){
+                    JOptionPane.showMessageDialog(null, "Invalid Email Address! , Please Re-enter");
                 }
-                if(TCode.equals("")){
-                    JOptionPane.showMessageDialog(null,"Invalid,Please re-enter a Category");
+                if(TCode.length()!=1 || TCode.charAt(0)>='D' && TCode.charAt(0)<='Z' || TCode.charAt(0)>='d' && TCode.charAt(0)<='z' ){
+                    JOptionPane.showMessageDialog(null,"Invalid Category Code! , Must be Category A, B or C");
+
                 }
                 if(Descript.equals("")){
-                    JOptionPane.showMessageDialog(null,"Invalid,Please re-enter the description of Ticket type");
+                    JOptionPane.showMessageDialog(null,"Invalid Ticket Description! ,Please Re-enter");
                 }
                 if(Rate.equals("")){
-                    JOptionPane.showMessageDialog(null,"Invalid,Please re-enter the rate of the ticket");
+                    JOptionPane.showMessageDialog(null,"Invalid! ,Please re-enter the rate of the ticket");
                 }
-                else {
+
+                else
                     JOptionPane.showMessageDialog(null, "Registration Complete");
-                }
+
 
             }
         });
@@ -74,6 +77,16 @@ public class SetCategory extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
 
+            }
+        });
+        btnClear.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                TxtFieldName.setText(null);
+                TxtFieldEmail.setText(null);
+                TxtFieldTicketCode.setText(null);
+                TxtFieldDescription.setText(null);
+                TxtFieldPrice.setText(null);
             }
         });
     }
