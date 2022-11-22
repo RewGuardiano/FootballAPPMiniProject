@@ -52,24 +52,28 @@ public class SetTicket extends JFrame {
 
                 if(Tname.equals("")) {
                     JOptionPane.showMessageDialog(null, "Invalid! ,Please Re-enter");
+                    return;
                 }
                 if(!Email.contains("@")||!Email.endsWith(".com")&&!Email.endsWith(".ie")){
                     JOptionPane.showMessageDialog(null, "Invalid Email Address! , Please Re-enter");
+                    return;
                 }
                 if(TCode.length()!=1 || TCode.charAt(0)>='D' && TCode.charAt(0)<='Z' || TCode.charAt(0)>='d' && TCode.charAt(0)<='z' ){
                     JOptionPane.showMessageDialog(null,"Invalid Category Code! , Must be Category A, B or C");
-
+                        return;
                 }
                 if(Descript.equals("")){
                     JOptionPane.showMessageDialog(null,"Invalid Ticket Description! ,Please Re-enter");
+                    return;
                 }
                 if(Rate.equals("")){
                     JOptionPane.showMessageDialog(null,"Invalid! ,Please re-enter the rate of the ticket");
+                    return;
                 }
 
-                else
+                else {
                     JOptionPane.showMessageDialog(null, "Registration Complete");
-
+                }
 
             }
         });
