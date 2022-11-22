@@ -3,7 +3,6 @@ package MiniProject;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.util.Objects;
 
 //https://www.youtube.com/watch?v=vZfVwMCAN7Y// //Youtube video to help learn formatting of gui//
@@ -16,15 +15,11 @@ public class FootballApp extends JFrame {
     private JLabel JLICON;
     private JButton BtnViewAvailabitlity;
 
-    ArrayList<Ticket> Tickets = new ArrayList<Ticket>();
-    private Ticket tickets;
     public FootballApp() {
         setTitle("Football Bookings System");
         setSize(500, 350);
         setContentPane(Panel1);
-        setVisible(true);
         setResizable(false);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
         setIconImage(new ImageIcon(Objects.requireNonNull(getClass().getResource("football.png"))).getImage());
@@ -48,18 +43,23 @@ public class FootballApp extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                if(Objects.equals(cobManageTicket.getSelectedItem(), "Set Ticket"))
+                if (Objects.equals(cobManageTicket.getSelectedItem(), "Set Ticket")) {
 
                     new SetTicket();    //learned from yt video, https://www.youtube.com/watch?v=sEWcNtbqC0Y//
-                dispose();
-                if(Objects.equals(cobManageTicket.getSelectedItem(), "Remove Ticket"))
+                    dispose();
+                }
+                if (Objects.equals(cobManageTicket.getSelectedItem(), "Remove Ticket")){
                     new RemoveTicket();
                 dispose();
-                if(Objects.equals(cobManageTicket.getSelectedItem(), "View Sales"))
-                    new ViewSales();
-                dispose();
+            }
+                if(Objects.equals(cobManageTicket.getSelectedItem(), "View Ticket")) {
+                    new ViewTicket();
+                    dispose();
+                }
             }
         });
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setVisible(true);
     }
     public static void main(String[]args){
         FootballApp Gui = new FootballApp();
@@ -68,6 +68,8 @@ public class FootballApp extends JFrame {
     private void createUIComponents() {
         // TODO: place custom component creation code here
     }
+
+
 }
 
 

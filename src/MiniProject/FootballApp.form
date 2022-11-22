@@ -61,7 +61,7 @@
           <model>
             <item value="Set Ticket"/>
             <item value="Remove Ticket"/>
-            <item value="View Sales"/>
+            <item value="View Ticket"/>
           </model>
         </properties>
       </component>

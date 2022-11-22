@@ -1,13 +1,17 @@
 package MiniProject;
 
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.Serializable;
 import java.util.Objects;
 
-public class ViewSales extends JFrame {
+public class ViewTicket extends JFrame {
     private JPanel Panel4;
+    private JComboBox comboBox1;
 
-    public ViewSales(){
-        setTitle("View Sales");
+    public ViewTicket(){
+        setTitle("View Ticket");
         setSize(500, 450);
         setContentPane(Panel4);
         setVisible(true);
@@ -17,6 +21,12 @@ public class ViewSales extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
+        comboBox1.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if()
+            }
+        });
     }
 
     private void createUIComponents() {
