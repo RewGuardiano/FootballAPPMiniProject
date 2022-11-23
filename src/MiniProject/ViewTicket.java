@@ -9,6 +9,7 @@ import java.util.Objects;
 public class ViewTicket extends JFrame {
     private JPanel Panel4;
     private JComboBox comboBox1;
+    private JButton button1;
 
     public ViewTicket(){
         setTitle("View Ticket");
@@ -24,7 +25,13 @@ public class ViewTicket extends JFrame {
         comboBox1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if()
+            }
+        });
+        button1.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new FootballApp();
+                setVisible(false);
             }
         });
     }

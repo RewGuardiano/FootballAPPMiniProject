@@ -1,19 +1,61 @@
 package MiniProject;
 
-public interface Ticket {
+import java.io.Serializable;
 
-    private abstract String getName();
+public class Ticket implements Serializable{
+private String name;
 
-    private abstract String getCategory();
+private String Category;
 
-    private abstract String getDescription();
+private String Description;
 
-    private abstract double getPrice();
+private String Price;
 
-    private abstract void setName(String name);
-    private abstract void setCategory(String Category);
 
-    private abstract void setDescription(String description);
+    public Ticket(){
+        this("None","None","None","Zero");
+    }
 
-    private
+    public Ticket(String name, String category, String description, String price) {
+        setName(name);
+        setCategory(category);
+        setDescription(description);
+        setPrice(price);
+
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getCategory() {
+        return Category;
+    }
+
+    public void setCategory(String category) {
+        Category = category;
+    }
+
+    public String getDescription() {
+        return Description;
+    }
+
+    public void setDescription(String description) {
+        Description = description;
+    }
+
+    public String getPrice() {
+        return Price;
+    }
+
+    public void setPrice(String price) {
+        Price = price;
+    }
+    public String toString() {
+        return String.format("Name: %s\nCategory: %s\nDescription: %s\nPrice: %s\n",getName(),getCategory(),getDescription(),getPrice());
+    }
 }

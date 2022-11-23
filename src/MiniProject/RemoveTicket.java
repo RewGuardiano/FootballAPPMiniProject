@@ -8,6 +8,7 @@ import java.util.Objects;
 public class RemoveTicket extends JFrame {
     private JPanel Panel3;
     private JComboBox CobRemove;
+    private JButton btnBack3;
 
 
     public RemoveTicket(){
@@ -25,6 +26,13 @@ public class RemoveTicket extends JFrame {
             public void actionPerformed(ActionEvent e) {
 
 
+            }
+        });
+        btnBack3.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new FootballApp();
+                setVisible(false);
             }
         });
     }

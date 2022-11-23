@@ -1,5 +1,7 @@
 package MiniProject;
 
+import jdk.jfr.Category;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -7,7 +9,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class SetTicket extends JFrame implements Ticket {
+public class SetTicket extends JFrame  {
 
 
     private JPanel Panel2;
@@ -46,14 +48,14 @@ public class SetTicket extends JFrame implements Ticket {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                String Tname = TxtFieldName.getText().toString();
+                String name = TxtFieldName.getText().toString();
                 String Email = TxtFieldEmail.getText().toString();
-                String TCode = TxtFieldTicketCode.getText().toString();
+                String Category = TxtFieldTicketCode.getText().toString();
                 String Descript = TxtFieldDescription.getText().toString();
                 String Price = TxtFieldPrice.getText().toString();
 
 
-                if (Tname.equals("")) {
+                if (name.equals("")) {
                     JOptionPane.showMessageDialog(null, "Invalid! ,Please Re-enter");
                     return;
                 }
@@ -61,7 +63,7 @@ public class SetTicket extends JFrame implements Ticket {
                     JOptionPane.showMessageDialog(null, "Invalid Email Address! , Please Re-enter");
                     return;
                 }
-                if (TCode.length() != 1 || TCode.charAt(0) >= 'D' && TCode.charAt(0) <= 'Z' || TCode.charAt(0) >= 'd' && TCode.charAt(0) <= 'z') {
+                if (Category.length() != 1 ||Category.charAt(0) >= 'D' &&Category.charAt(0) <= 'Z' || Category.charAt(0) >= 'd' && Category.charAt(0) <= 'z') {
                     JOptionPane.showMessageDialog(null, "Invalid Category Code! , Must be Category A, B or C");
                     return;
                 }
@@ -76,10 +78,11 @@ public class SetTicket extends JFrame implements Ticket {
                     JOptionPane.showMessageDialog(null, "Registration Complete");
 
                 }
-                ticket = new Ticket(Tname, TCode, Descript,Price);
+
+                ticket= new Ticket(name,Category,Descript,Price);
                 Tickets.add(ticket);
 
-                JOptionPane.showMessageDialog(null, "Username's " + Tname + " Ticket is added to the system");
+                JOptionPane.showMessageDialog(null, "Username's " + name + " Ticket is added to the system");
 
             }
         });
