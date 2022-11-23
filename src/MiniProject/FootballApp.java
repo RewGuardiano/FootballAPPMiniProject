@@ -3,6 +3,7 @@ package MiniProject;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.Objects;
 
 //https://www.youtube.com/watch?v=vZfVwMCAN7Y// //Youtube video to help learn formatting of gui//
@@ -14,6 +15,8 @@ public class FootballApp extends JFrame {
     private JLabel JLManageTicket;
     private JLabel JLICON;
     private JButton BtnViewAvailabitlity;
+    ArrayList<Ticket> Tickets = new ArrayList<>();
+    public Ticket ticket;
 
     public FootballApp() {
         setTitle("Football Bookings System");
@@ -44,9 +47,7 @@ public class FootballApp extends JFrame {
             public void actionPerformed(ActionEvent e) {
 
                 if (Objects.equals(cobManageTicket.getSelectedItem(), "Set Ticket")) {
-
-                    new SetTicket(); //learned from yt video, https://www.youtube.com/watch?v=sEWcNtbqC0Y//
-                    dispose();
+                    createSetTicketMenu();
                 }
                 if (Objects.equals(cobManageTicket.getSelectedItem(), "Remove Ticket")){
                     new RemoveTicket();
@@ -61,6 +62,28 @@ public class FootballApp extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
     }
+
+    private void createSetTicketMenu() {
+     final String [] TicketList = {"A","B","C"};
+     String Name;
+     String Category;
+     String Description;
+     Double Price;
+
+     Category = (String) JOptionPane.showInputDialog(null,"Ticket Category","Category",JOptionPane.QUESTION_MESSAGE,null,TicketList,TicketList[0]);
+
+     Name = JOptionPane.showInputDialog("Enter your name: ");
+     Description = JOptionPane.showInputDialog("Enter the ticket Seat Description: ");
+
+     Price = Double.parseDouble(JOptionPane.showInputDialog("Enter the Ticket's Price"));
+
+        ticket = new Ticket(Name,Category,Description,Price);
+        Tickets.add(ticket);
+
+
+
+    }
+
     public static void main(String[]args){
         FootballApp Gui = new FootballApp();
     }

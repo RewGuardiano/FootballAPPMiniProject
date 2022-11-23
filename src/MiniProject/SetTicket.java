@@ -28,8 +28,8 @@ public class SetTicket extends JFrame  {
     private JButton btnClear;
     private JButton btnBack;
 
-    ArrayList<Ticket> Tickets = new ArrayList<Ticket>();
-    private Ticket ticket;
+    ArrayList<Ticket> Tickets = new ArrayList<>();
+   public Ticket ticket;
 
     public SetTicket() {
 
@@ -51,7 +51,7 @@ public class SetTicket extends JFrame  {
                 String name = TxtFieldName.getText().toString();
                 String Email = TxtFieldEmail.getText().toString();
                 String Category = TxtFieldTicketCode.getText().toString();
-                String Descript = TxtFieldDescription.getText().toString();
+                String Description = TxtFieldDescription.getText().toString();
                 String Price = TxtFieldPrice.getText().toString();
 
 
@@ -67,7 +67,7 @@ public class SetTicket extends JFrame  {
                     JOptionPane.showMessageDialog(null, "Invalid Category Code! , Must be Category A, B or C");
                     return;
                 }
-                if (Descript.equals("")) {
+                if (Description.equals("")) {
                     JOptionPane.showMessageDialog(null, "Invalid Ticket Description! ,Please Re-enter");
                     return;
                 }
@@ -79,7 +79,7 @@ public class SetTicket extends JFrame  {
 
                 }
 
-                ticket= new Ticket(name,Category,Descript,Price);
+                ticket = new Ticket(name,Category,Description,Price);
                 Tickets.add(ticket);
 
                 JOptionPane.showMessageDialog(null, "Username's " + name + " Ticket is added to the system");

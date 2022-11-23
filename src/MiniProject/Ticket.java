@@ -9,14 +9,14 @@ private String Category;
 
 private String Description;
 
-private String Price;
+private double Price;
 
 
     public Ticket(){
-        this("None","None","None","Zero");
+        this("None","None","None",0);
     }
 
-    public Ticket(String name, String category, String description, String price) {
+    public Ticket(String name, String category, String description, double price) {
         setName(name);
         setCategory(category);
         setDescription(description);
