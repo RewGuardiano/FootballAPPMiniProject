@@ -16,7 +16,7 @@
           <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
-          <font size="18" style="1"/>
+          <font size="22" style="1"/>
           <text value="Manage Tickets"/>
         </properties>
       </component>
@@ -35,7 +35,7 @@
           <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
-          <font size="18" style="1"/>
+          <font size="22" style="1"/>
           <horizontalAlignment value="0"/>
           <horizontalTextPosition value="0"/>
           <text value="View Sales"/>
@@ -49,19 +49,20 @@
         <properties>
           <horizontalAlignment value="0"/>
           <horizontalTextPosition value="0"/>
-          <icon value="MiniProject/football-field.png"/>
+          <icon value="MiniProject/stadium.png"/>
           <text value=""/>
           <toolTipText value=""/>
         </properties>
       </component>
       <component id="d1a57" class="javax.swing.JComboBox" binding="cobManageTicket">
         <constraints>
-          <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="9" fill="1" indent="0" use-parent-layout="false"/>
+          <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="9" fill="1" indent="2" use-parent-layout="false"/>
         </constraints>
         <properties>
           <background color="-12828863"/>
           <editable value="false"/>
           <enabled value="true"/>
+          <font size="22" style="0"/>
           <foreground color="-4473925"/>
           <model>
             <item value="Set Ticket"/>
@@ -72,18 +73,20 @@
       </component>
       <component id="3e255" class="javax.swing.JButton" binding="BtnViewSales">
         <constraints>
-          <grid row="2" column="1" row-span="2" col-span="1" vsize-policy="0" hsize-policy="3" anchor="1" fill="1" indent="0" use-parent-layout="false"/>
+          <grid row="2" column="1" row-span="2" col-span="1" vsize-policy="0" hsize-policy="3" anchor="1" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
+          <font size="22" style="0"/>
+          <horizontalTextPosition value="0"/>
           <text value="Check"/>
         </properties>
       </component>
       <component id="25d06" class="javax.swing.JButton" binding="saveDataButton" default-binding="true">
         <constraints>
-          <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="1" fill="0" indent="15" use-parent-layout="false"/>
+          <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="1" fill="0" indent="16" use-parent-layout="false"/>
         </constraints>
         <properties>
-          <font size="12" style="1"/>
+          <font size="22" style="1"/>
           <horizontalTextPosition value="0"/>
           <text value="Save Data"/>
           <verticalAlignment value="0"/>

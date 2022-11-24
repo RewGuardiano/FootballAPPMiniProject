@@ -2,15 +2,17 @@ package MiniProject;
 
 import javax.swing.*;
 
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Objects;
 
 import static javax.swing.JOptionPane.*;
 
 //https://www.youtube.com/watch?v=vZfVwMCAN7Y// //Youtube video to help learn formatting of gui//
-public class FootballApp extends JFrame {
+public class FootballApp extends JFrame implements ActionListener{
     private JPanel Panel1;
     private JComboBox cobManageTicket;
     private JLabel JLTitle;
@@ -19,20 +21,21 @@ public class FootballApp extends JFrame {
     private JLabel JLICON;
     private JButton BtnViewSales;
     private JButton saveDataButton;
-    private JButton btnX;
+
 
     ArrayList<Ticket> Tickets = new ArrayList<>();
     public Ticket ticket;
 
-    public FootballApp() {
+    public FootballApp() throws IOException {
         setTitle("Football Bookings System");
-        setSize(500, 350);
+        setSize(550, 500);
         setContentPane(Panel1);
         setLocationRelativeTo(null);
         setResizable(false);
 
         setIconImage(new ImageIcon(Objects.requireNonNull(getClass().getResource("football.png"))).getImage());
 
+        SavaData();
 
 
         cobManageTicket.addActionListener(new ActionListener() {
@@ -58,30 +61,78 @@ public class FootballApp extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                double sum =0;
+               double highest = 0, lowest = 1000;
                 JComboBox<Double>TicketList = new JComboBox<>();
+                JTextArea textArea = new JTextArea();
+                textArea.setFont(new Font("monospaced", Font.PLAIN,12));
 
-                JComboBox<String> TicketDetails= new JComboBox<>();
-                JTextArea output = new JTextArea();
-
-                output.setText("Total Sales:\n\n");
 
                 if(Tickets.size() < 1) {
                     JOptionPane.showMessageDialog(null,"No Tickets are added to the system yet. ","Warning",JOptionPane.WARNING_MESSAGE);
                 }
-                else{
+                else {
 
-                    for(Ticket t: Tickets){
+                    for (Ticket t : Tickets) {
                         TicketList.addItem(t.getPrice());
 
                         sum += t.getPrice();
 
-                    }
-                    JOptionPane.showMessageDialog(null,"The total Price is: " +"EUR" + String.format("%.2f",sum), "Sales", INFORMATION_MESSAGE);
-                }
+                        if(t.getPrice()>highest){
+                            highest = t.getPrice();
 
+                            if(t.getPrice()<lowest){
+                                lowest = t.getPrice();
+                            }
+                        }
+
+
+                    }
+
+                     //Trying to display the most expensive ticket and the cheapest ticket//
+
+                    textArea.append("The highest ticket price is: " + String.format("%.2f",highest) + "\nThe lowest ticket Price is: " + String.format("%.2f",lowest) + "\n\nThe total Price is: " + "EUR" + String.format("%.2f", sum));
+                    JOptionPane.showMessageDialog(null,textArea, "Sales Analysis", INFORMATION_MESSAGE);
+
+                }
 
             }
         });
+        saveDataButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            try{
+                SavaData();
+                JOptionPane.showMessageDialog(saveDataButton,"Users Data have been Saved");
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+            }
+        });
+    }
+
+    public void SavaData() throws IOException {
+        File f = new File("UserData.txt");
+        if(!f.exists()){
+            f.createNewFile();
+        }
+        BufferedReader br = new BufferedReader(new FileReader(f));
+        Object[] Lines = br.lines().toArray();
+        int i =0;
+        int id =0;
+        for(i=0;i < Lines.length;i++){
+            String Line = Lines[i].toString().trim();
+            String[] Row = Line.split(",");
+            id = Integer.parseInt(Row[0]);
+
+
+
+
+        }
+        FileWriter fw = new FileWriter(f,true);
+        BufferedWriter bw = new BufferedWriter(fw);
+        PrintWriter pw = new PrintWriter(bw);
+
+        pw.println(Tickets);
     }
 
 
@@ -134,7 +185,7 @@ public class FootballApp extends JFrame {
 
     }
     private void createRemoveTicketMenu() {
-        JComboBox<String>TicketList = new JComboBox<String>();
+        JComboBox<String>TicketList = new JComboBox<>();
 
         for(Ticket t: Tickets){
             TicketList.addItem(t.getEmail());
@@ -153,9 +204,9 @@ public class FootballApp extends JFrame {
     }
     private void createViewTicket() {
         JComboBox<String> TicketDetails= new JComboBox<>();
-        JTextArea output = new JTextArea();
+        JTextArea Displaybox = new JTextArea();
 
-        output.setText("Ticket Details:\n\n");
+        Displaybox.setText("Ticket Details:\n\n");
 
 
         if(Tickets.size() < 1) {
@@ -170,18 +221,23 @@ public class FootballApp extends JFrame {
             JOptionPane.showMessageDialog(null,TicketDetails,"Select Ticket to view details",JOptionPane.PLAIN_MESSAGE);
 
             int SelectedTicket = TicketDetails.getSelectedIndex();
-            output.append(Tickets.get(SelectedTicket).toString());
-            JOptionPane.showMessageDialog(null,output,"Ticket Details",JOptionPane.PLAIN_MESSAGE);
+            Displaybox.append(Tickets.get(SelectedTicket).toString());
+            JOptionPane.showMessageDialog(null,Displaybox,"Ticket Details",JOptionPane.PLAIN_MESSAGE);
         }
     }
 
 
-    public static void main(String[]args){
+    public static void main(String[]args) throws IOException {
         FootballApp Gui = new FootballApp();
     }
 
     private void createUIComponents() {
         // TODO: place custom component creation code here
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+
     }
 }
 
