@@ -3,21 +3,25 @@ package MiniProject;
 import java.io.Serializable;
 
 public class Ticket implements Serializable{
-private String name;
+    private String Name;
+    private String name;
 
-private String Category;
+    private String Email;
 
-private String Description;
+    private String Category;
 
-private double Price;
+    private String Description;
+
+    private double Price;
 
 
     public Ticket(){
-        this("None","None","None",0);
+        this("None","None","None","None",0);
     }
 
-    public Ticket(String name, String category, String description, double price) {
+    public Ticket(String name,String email, String category, String description, double price) {
         setName(name);
+        setEmail(email);
         setCategory(category);
         setDescription(description);
         setPrice(price);
@@ -30,6 +34,14 @@ private double Price;
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getEmail() {
+        return Email;
+    }
+
+    public void setEmail(String email) {
+        Email = email;
     }
 
     public String getCategory() {
@@ -48,14 +60,14 @@ private double Price;
         Description = description;
     }
 
-    public String getPrice() {
+    public double getPrice() {
         return Price;
     }
 
-    public void setPrice(String price) {
+    public void setPrice(double price) {
         Price = price;
     }
     public String toString() {
-        return String.format("Name: %s\nCategory: %s\nDescription: %s\nPrice: %s\n",getName(),getCategory(),getDescription(),getPrice());
+        return String.format("Name: %s\nCategory: %s\nDescription: %s\nPrice: %.2f\n",getName(),getCategory(),getDescription(),getPrice());
     }
 }
