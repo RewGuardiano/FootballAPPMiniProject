@@ -57,8 +57,8 @@ public class FootballApp extends JFrame {
         BtnViewSales.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-               int sum =0;
-               double tax = 0.0725;
+               double sum =0;
+                JComboBox<Double>TicketList = new JComboBox<>();
 
                 JComboBox<String> TicketDetails= new JComboBox<>();
                 JTextArea output = new JTextArea();
@@ -70,6 +70,13 @@ public class FootballApp extends JFrame {
                 }
                 else{
 
+                    for(Ticket t: Tickets){
+                        TicketList.addItem(t.getPrice());
+
+                        sum += t.getPrice();
+
+                    }
+                    JOptionPane.showMessageDialog(null,"The total Price is: " +"EUR" + String.format("%.2f",sum), "Sales", INFORMATION_MESSAGE);
                 }
 
 
@@ -85,6 +92,7 @@ public class FootballApp extends JFrame {
         String Category;
         String Description;
         double Price;
+        boolean EmailValid = false;
 
         Category = (String) showInputDialog(null, "Ticket Category", "Category", QUESTION_MESSAGE, null, TicketList, TicketList[0]);
 
@@ -95,9 +103,14 @@ public class FootballApp extends JFrame {
             showInputDialog("Enter your name: ");
         }
         Email = showInputDialog("Enter you Email Address");
-        if (Email.startsWith("@") || !Email.contains("@") && !Email.endsWith(".com") || !Email.endsWith(".ie")) {
-            showMessageDialog(null, "Invalid Email Address! , Please Re-enter");
-              showInputDialog("Enter you Email Address");
+        while(!EmailValid) {
+            if ((Email.startsWith("@") || (!Email.contains("@"))) && ((!Email.endsWith(".com")) || (!Email.endsWith(".ie")))) {
+                showMessageDialog(null, "Invalid Email Address! , Please Re-enter");
+                Email = showInputDialog("Enter you Email Address");
+            } else {
+                EmailValid = true;
+
+            }
         }
         Description = showInputDialog("Enter the ticket Seat Description: ");
 
@@ -112,7 +125,7 @@ public class FootballApp extends JFrame {
             showInputDialog("Enter the Ticket's Price");
         }
         else {
-            showMessageDialog(null, "Ticket with the name  " + Name + "  is added to the system");
+            showMessageDialog(null, "Ticket with the name " + Name.toUpperCase() + " is added to the system");
         }
 
         ticket = new Ticket(Name, Email, Category, Description, Price);
@@ -124,7 +137,7 @@ public class FootballApp extends JFrame {
         JComboBox<String>TicketList = new JComboBox<String>();
 
         for(Ticket t: Tickets){
-            TicketList.addItem(t.getName());
+            TicketList.addItem(t.getEmail());
 
         }
         JOptionPane.showMessageDialog(null,"Select Ticket to be removed","Remove Ticket",JOptionPane.INFORMATION_MESSAGE);
@@ -133,7 +146,7 @@ public class FootballApp extends JFrame {
 
         int SelectedTicket= TicketList.getSelectedIndex();
 
-        TicketList.remove(SelectedTicket);
+        Tickets.remove(SelectedTicket);
 
         JOptionPane.showMessageDialog(null,"Ticket Removed","Removed",JOptionPane.INFORMATION_MESSAGE);
 
@@ -151,7 +164,7 @@ public class FootballApp extends JFrame {
         else {
 
             for (Ticket Details: Tickets) {
-                TicketDetails.addItem(Details.getName() + "\n");
+                TicketDetails.addItem(Details.getEmail() + "\n");
             }
 
             JOptionPane.showMessageDialog(null,TicketDetails,"Select Ticket to view details",JOptionPane.PLAIN_MESSAGE);

@@ -34,18 +34,20 @@ public class Login extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 String TNumber=TxtFieldTnumber.getText().toString();
                 String password= String.valueOf(passwordFieldLogin.getPassword());
+                boolean valid = false;
 
-                    if((TNumber.length() != 9) || (TNumber.charAt(0) != 'T') || (TNumber.charAt(0) != 't')){
-                        JOptionPane.showMessageDialog(null,"Invalid Login Details");
-                        return;
-                    }
-                    if(password.equals("")) {
-                        JOptionPane.showMessageDialog(null,"Invalid Login Details");
+                    for(int i=1;i<TNumber.length();i++)
+                        if ((TNumber.length() == 9) || (TNumber.charAt(0) == 'T') || (TNumber.charAt(0) == 't') || (TNumber.charAt(i) >= '0') || (TNumber.charAt(i) >= '9') && !password.equals("")) {
+                            valid = true;
+                            break;
+                        }
+                    if(valid){
+                        JOptionPane.showMessageDialog(null,"Welcome to the System","Welcome",JOptionPane.INFORMATION_MESSAGE);
+                        new FootballApp();
+                        dispose();
                     }
                     else{
-                        JOptionPane.showMessageDialog(null,"Welcome to the System","Welcome",JOptionPane.INFORMATION_MESSAGE);
-                            new FootballApp();
-                            dispose();
+                        JOptionPane.showMessageDialog(null,"Invalid login details","Error",JOptionPane.ERROR_MESSAGE);
                     }
             }
         });

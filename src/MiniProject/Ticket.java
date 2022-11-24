@@ -3,7 +3,6 @@ package MiniProject;
 import java.io.Serializable;
 
 public class Ticket implements Serializable{
-    private String Name;
     private String name;
 
     private String Email;
