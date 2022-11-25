@@ -56,7 +56,13 @@ public class Login extends JFrame {
             }
         });
     }
-    //Learned file input and output from this YouTube video https://www.youtube.com/watch?v=typQHNak0Tk&t=1395s//
+   /***************************************************** *
+   Title: Attempts in text file input * 
+   Author: Code with AADI
+   * Site: Youtube * 
+   Date: 2020 * Code version: Nov 24 2020 
+   Availability: https://www.youtube.com/watch?v=typQHNak0Tk&t=1380s (Accessed 24 Nov 2022) * 
+   *****************************************************/ 
     public void SaveData() throws IOException {
         File f = new File("UsersLoginData.txt");
         if (!f.exists()) {
