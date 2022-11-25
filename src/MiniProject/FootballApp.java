@@ -33,11 +33,9 @@ public class FootballApp extends JFrame{
         setContentPane(Panel1);
         setLocationRelativeTo(null);
         setResizable(false);
-
+        //icon images where got from site: https://www.flaticon.com///
         setIconImage(new ImageIcon(Objects.requireNonNull(getClass().getResource("football.png"))).getImage());
 
-        CreateOpenData();
-        CreateSaveData();
 
 
         cobManageTicket.addActionListener(new ActionListener() {
@@ -114,13 +112,13 @@ public class FootballApp extends JFrame{
                 }
             }
         });
-//Learned file input and output from this YouTube video https://www.youtube.com/watch?v=typQHNak0Tk&t=1395s//
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
+        CreateOpenData();
     }
 
-    private void CreateOpenData() {
+    public void CreateOpenData() {
         try {
 
 
@@ -139,7 +137,7 @@ public class FootballApp extends JFrame{
                 file.createNewFile();
                 JOptionPane.showMessageDialog(null, "File just created!!", "Created " + file.getName() + " file", JOptionPane.INFORMATION_MESSAGE);
             }
-        } //these individual catch clauses added by JB, replacing a single "Exception" catch clause
+        }
         catch(ClassNotFoundException cce) {
             JOptionPane.showMessageDialog(null,"Class of object deserialised not a match for anything used in this application","Error",JOptionPane.ERROR_MESSAGE);
             cce.printStackTrace();
