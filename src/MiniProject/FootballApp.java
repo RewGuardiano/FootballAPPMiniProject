@@ -98,7 +98,8 @@ public class FootballApp extends JFrame{
                 try {
 
 
-                    File file = new File("BookingTickets.dat");
+                    File file = new File("BookingTickets.data");
+                    createSaveData();
                     if(file.exists()) {
 
                         ObjectInputStream is = new ObjectInputStream(new FileInputStream(file));
@@ -134,7 +135,7 @@ public class FootballApp extends JFrame{
     }
 
     private void createSaveData() throws IOException {
-        ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream("BookingTickets.txt"));
+        ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream("BookingTickets.data"));
         os.writeObject(Tickets);
         os.close();
     }

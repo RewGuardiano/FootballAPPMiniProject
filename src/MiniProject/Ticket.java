@@ -2,6 +2,10 @@ package MiniProject;
 
 import java.io.Serializable;
 
+/**
+ *
+ */
+
 public class Ticket implements Serializable{
     private String name;
 
@@ -32,7 +36,10 @@ public class Ticket implements Serializable{
     }
 
     public void setName(String name) {
+        if(name==null||name.equals(""))
+            throw new IllegalArgumentException("The Ticket must have a Person's name assigned to it\n");
         this.name = name;
+
     }
 
     public String getEmail() {
@@ -40,7 +47,7 @@ public class Ticket implements Serializable{
     }
 
     public void setEmail(String email) {
-        Email = email;
+        this.Email = email;
     }
 
     public String getCategory() {
@@ -48,7 +55,7 @@ public class Ticket implements Serializable{
     }
 
     public void setCategory(String category) {
-        Category = category;
+        this.Category = category;
     }
 
     public String getDescription() {
@@ -56,7 +63,7 @@ public class Ticket implements Serializable{
     }
 
     public void setDescription(String description) {
-        Description = description;
+        this.Description = description;
     }
 
     public double getPrice() {
@@ -64,7 +71,9 @@ public class Ticket implements Serializable{
     }
 
     public void setPrice(double price) {
-        Price = price;
+        if(price<0)
+            throw new IllegalArgumentException("The ticket price must be a positive number\n");
+       this.Price = price;
     }
     public String toString() {
         return String.format("Name: %s\nCategory: %s\nDescription: %s\nPrice: %.2f\n",getName(),getCategory(),getDescription(),getPrice());
