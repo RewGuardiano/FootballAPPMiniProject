@@ -27,6 +27,7 @@ public class FootballApp extends JFrame{
     public Ticket ticket;
 
     public FootballApp() throws IOException {
+
         setTitle("Football Bookings System");
         setSize(550, 500);
         setContentPane(Panel1);
@@ -34,6 +35,9 @@ public class FootballApp extends JFrame{
         setResizable(false);
 
         setIconImage(new ImageIcon(Objects.requireNonNull(getClass().getResource("football.png"))).getImage());
+
+        CreateOpenData();
+        CreateSaveData();
 
 
         cobManageTicket.addActionListener(new ActionListener() {
@@ -64,7 +68,7 @@ public class FootballApp extends JFrame{
 
 
                 if (Tickets.size() < 1) {
-                    JOptionPane.showMessageDialog(null, "No Tickets are added to the system yet. ", "Warning", JOptionPane.WARNING_MESSAGE);
+                    showMessageDialog(null, "No Tickets are added to the system yet. ", "Warning", WARNING_MESSAGE);
                 } else {
 
                     for (Ticket t : Tickets) {
@@ -85,8 +89,8 @@ public class FootballApp extends JFrame{
 
                     //Trying to display the most expensive ticket and the cheapest ticket//
 
-                    textArea.append("The highest ticket price is: " + String.format("%.2f", highest) + "\nThe lowest ticket Price is: " + String.format("%.2f", lowest) + "\n\nThe total Price is: " + "EUR" + String.format("%.2f", sum));
-                    JOptionPane.showMessageDialog(null, textArea, "Sales Analysis", INFORMATION_MESSAGE);
+                    textArea.append("The highest ticket price is: " + String.format("%.2f", highest) + "EUR "+"\nThe lowest ticket Price is: " + String.format("%.2f", lowest) + "EUR" + "\n\nThe total Price is: " + "EUR" + String.format("%.2f", sum));
+                    showMessageDialog(null, textArea, "Sales Analysis", INFORMATION_MESSAGE);
 
                 }
 
@@ -95,36 +99,18 @@ public class FootballApp extends JFrame{
         saveDataButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                try {
+                int option = JOptionPane.showConfirmDialog(null,"Are you sure you want to exit?","Confirmation",JOptionPane.YES_NO_OPTION);
 
-
-                    File file = new File("BookingTickets.data");
-                    createSaveData();
-                    if(file.exists()) {
-
-                        ObjectInputStream is = new ObjectInputStream(new FileInputStream(file));
-
-                        Tickets = (ArrayList<Ticket>) is.readObject();
-                        is.close();
-
-                        JOptionPane.showMessageDialog(null, file.getName() + " file loaded into the system", "Open", JOptionPane.INFORMATION_MESSAGE);
+                if(option == JOptionPane.YES_OPTION) {
+                    try {
+                        CreateSaveData();
+                        JOptionPane.showMessageDialog(null,"Data saved successfully","Saved",JOptionPane.INFORMATION_MESSAGE);
+                    } catch (IOException e1) {
+                        JOptionPane.showMessageDialog(null,"Not able to save the file");
+                        e1.printStackTrace();
                     }
-                    else{
-                        file.createNewFile();
-                        JOptionPane.showMessageDialog(null, "File created!!", "Created " + file.getName() + " file", JOptionPane.INFORMATION_MESSAGE);
-                    }
-                }
-                catch(ClassNotFoundException cce) {
-                    JOptionPane.showMessageDialog(null,"Class of object deserialised not a match for anything used in this application","Error",JOptionPane.ERROR_MESSAGE);
-                    cce.printStackTrace();
-                }
-                catch (FileNotFoundException fnfe) {
-                    JOptionPane.showMessageDialog(null,"File not found","Error",JOptionPane.ERROR_MESSAGE);
-                    fnfe.printStackTrace();
-                }
-                catch (IOException ioe) {
-                    JOptionPane.showMessageDialog(null,"Problem reading from the file","Error",JOptionPane.ERROR_MESSAGE);
-                    ioe.printStackTrace();
+
+                    System.exit(0);
                 }
             }
         });
@@ -134,7 +120,41 @@ public class FootballApp extends JFrame{
         setVisible(true);
     }
 
-    private void createSaveData() throws IOException {
+    private void CreateOpenData() {
+        try {
+
+
+            File file = new File("BookingTickets.data");
+
+            if(file.exists()) {
+
+                ObjectInputStream is = new ObjectInputStream(new FileInputStream(file));
+
+                Tickets = (ArrayList<Ticket>) is.readObject();
+                is.close();
+
+                JOptionPane.showMessageDialog(null, file.getName() + " file loaded into the system", "Open", JOptionPane.INFORMATION_MESSAGE);
+            }
+            else{
+                file.createNewFile();
+                JOptionPane.showMessageDialog(null, "File just created!!", "Created " + file.getName() + " file", JOptionPane.INFORMATION_MESSAGE);
+            }
+        } //these individual catch clauses added by JB, replacing a single "Exception" catch clause
+        catch(ClassNotFoundException cce) {
+            JOptionPane.showMessageDialog(null,"Class of object deserialised not a match for anything used in this application","Error",JOptionPane.ERROR_MESSAGE);
+            cce.printStackTrace();
+        }
+        catch (FileNotFoundException fnfe) {
+            JOptionPane.showMessageDialog(null,"File not found","Error",JOptionPane.ERROR_MESSAGE);
+            fnfe.printStackTrace();
+        }
+        catch (IOException ioe) {
+            JOptionPane.showMessageDialog(null,"Problem reading from the file","Error",JOptionPane.ERROR_MESSAGE);
+            ioe.printStackTrace();
+        }
+    }
+
+    private void CreateSaveData() throws IOException {
         ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream("BookingTickets.data"));
         os.writeObject(Tickets);
         os.close();
