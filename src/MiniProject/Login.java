@@ -57,24 +57,24 @@ public class Login extends JFrame {
                 }
             }
         });
-        loginButton.addActionListener(new ActionListener() {
+       /* loginButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                try{
-                    if(OpenData()){
-                        OpenData();
-                        JOptionPane.showMessageDialog(null,"Successful Login");
-                    }
-                    else {
-                    JOptionPane.showMessageDialog(null,"Incorrect Credentials, Please try again!");
-                    }
-                } catch (IOException ex) {
-                    throw new RuntimeException(ex);
-                }
+              /*  try {//the open data commented out since it's giving a run time error//
+            OpenData();
+            ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream("BookingTickets.data"));
+            os.writeObject(TxtFieldUsername.getText());
+            os.writeObject(passwordFieldLogin.getPassword());
+            os.close();
 
-            }
-
-        });
+        } catch (FileNotFoundException fnfe) {
+            JOptionPane.showMessageDialog(null, "File not found", "Error", JOptionPane.ERROR_MESSAGE);
+            fnfe.printStackTrace();
+        } catch (IOException ioe) {
+            JOptionPane.showMessageDialog(null, "Problem reading from the file", "Error", JOptionPane.ERROR_MESSAGE);
+            ioe.printStackTrace();
+        }
+        });*/
     }
 
     /***************************************************** *
@@ -94,10 +94,10 @@ public class Login extends JFrame {
 
     }
 
-    public boolean OpenData() throws IOException {
+   /*  private void OpenData() throws IOException {
         try {
 
-
+            boolean valid = false;
             File file = new File("BookingTicket.data");
             System.out.println("opening file");
             if (!file.exists()) {
@@ -112,15 +112,24 @@ public class Login extends JFrame {
                     String Line = Lines[i].toString().trim();
                     String[] Row = Line.split(",");
                     System.out.println(Arrays.toString(Row));
-                    return TxtFieldUsername.getText().equals(Row[1]) && passwordFieldLogin.getText().equals(Row[4]);
+                    if (TxtFieldUsername.getText().equals(Row[1]) && passwordFieldLogin.getText().equals(Row[4])) {
+                        valid = true;
+                        JOptionPane.showMessageDialog(null, "Successful Login");
+                    } else {
+                        valid = false;
+                        JOptionPane.showMessageDialog(null, "Incorrect Credentials,Please try again!");
+                    }
                 }
-                return false;
             }
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+        } catch (FileNotFoundException fnfe) {
+            JOptionPane.showMessageDialog(null, "File not found", "Error", JOptionPane.ERROR_MESSAGE);
+            fnfe.printStackTrace();
+        } catch (IOException ioe) {
+            JOptionPane.showMessageDialog(null, "Problem reading from the file", "Error", JOptionPane.ERROR_MESSAGE);
+            ioe.printStackTrace();
         }
-        return false;
-    }
+    }*/
+
     public static void main(String[]args) {
         Login Gui = new Login();
 
