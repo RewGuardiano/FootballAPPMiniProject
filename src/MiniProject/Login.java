@@ -3,12 +3,9 @@ package MiniProject;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.ArrayList;
+import java.io.*;
 import java.util.Objects;
+
 
 public class Login extends JFrame {
     private JPanel JPHeader;
@@ -20,8 +17,6 @@ public class Login extends JFrame {
     private JButton loginButton;
     private JPasswordField passwordFieldLogin;
 
-    ArrayList<Login> LoginInfo = new ArrayList<>();
-    public Login Logins;
 
     public Login() {
         setTitle("Login Form");
@@ -41,13 +36,56 @@ public class Login extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String Username = TxtFieldUsername.getText();
-                String password= String.valueOf(passwordFieldLogin.getPassword());
+                String Password = passwordFieldLogin.getText();
+              try {
+                  if(!Username.equals("") && !Password.equals("")) {
+                      SaveData();
+                      TxtFieldUsername.setText(null);
+                      passwordFieldLogin.setText(null);
+                      new FootballApp();
+                      dispose();
+                      JOptionPane.showMessageDialog(null, "Welcome to the System", "Welcome", JOptionPane.INFORMATION_MESSAGE);
+                  }
+                  else
+                  {
+                      JOptionPane.showMessageDialog(null, "Please fill all Fields ", "Error",JOptionPane.ERROR_MESSAGE);
+                  }
+              } catch (IOException ex) {
+                  throw new RuntimeException(ex);
+              }
             }
         });
+    }
+    //Learned file input and output from this YouTube video https://www.youtube.com/watch?v=typQHNak0Tk&t=1395s//
+    public void SaveData() throws IOException {
+        File f = new File("UsersLoginData.txt");
+        if (!f.exists()) {
+            f.createNewFile();
+
+            BufferedReader br = new BufferedReader(new FileReader(f));
+            Object[] Lines = br.lines().toArray();
+            int i = 0;
+            int id = 0;
+            for (i = 0; i < Lines.length; i++) {
+                String Line = Lines[i].toString().trim();
+                String[] Row = Line.split(",");
+                id = Integer.parseInt(Row[0]) + 1;
+
+
+            }
+            FileWriter fw = new FileWriter(f, true);
+            BufferedWriter bw = new BufferedWriter(fw);
+            PrintWriter pw = new PrintWriter(bw);
+
+            pw.println(TxtFieldUsername.getText() + "," + passwordFieldLogin.getText());
+            pw.flush();
+            pw.close();
+        }
     }
 
     public static void main(String[]args){
         Login Gui = new Login();
+
     }
     private void createUIComponents() {
         // TODO: place custom component creation code here

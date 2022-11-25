@@ -12,7 +12,7 @@ import java.util.Objects;
 import static javax.swing.JOptionPane.*;
 
 //https://www.youtube.com/watch?v=vZfVwMCAN7Y// //Youtube video to help learn formatting of gui//
-public class FootballApp extends JFrame implements ActionListener{
+public class FootballApp extends JFrame{
     private JPanel Panel1;
     private JComboBox cobManageTicket;
     private JLabel JLTitle;
@@ -35,8 +35,6 @@ public class FootballApp extends JFrame implements ActionListener{
 
         setIconImage(new ImageIcon(Objects.requireNonNull(getClass().getResource("football.png"))).getImage());
 
-        SavaData();
-
 
         cobManageTicket.addActionListener(new ActionListener() {
             @Override
@@ -49,38 +47,35 @@ public class FootballApp extends JFrame implements ActionListener{
                     createRemoveTicketMenu();
                 }
                 if (Objects.equals(cobManageTicket.getSelectedItem(), "View Ticket")) {
-                   createViewTicket();
+                    createViewTicket();
                 }
             }
         });
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setVisible(true);
 
 
         BtnViewSales.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-               double sum =0;
-               double highest = 0, lowest = 1000;
-                JComboBox<Double>TicketList = new JComboBox<>();
+                double sum = 0;
+                double highest = 0, lowest = 1000;
+                JComboBox<Double> TicketList = new JComboBox<>();
                 JTextArea textArea = new JTextArea();
-                textArea.setFont(new Font("monospaced", Font.PLAIN,12));
+                textArea.setFont(new Font("monospaced", Font.PLAIN, 12));
 
 
-                if(Tickets.size() < 1) {
-                    JOptionPane.showMessageDialog(null,"No Tickets are added to the system yet. ","Warning",JOptionPane.WARNING_MESSAGE);
-                }
-                else {
+                if (Tickets.size() < 1) {
+                    JOptionPane.showMessageDialog(null, "No Tickets are added to the system yet. ", "Warning", JOptionPane.WARNING_MESSAGE);
+                } else {
 
                     for (Ticket t : Tickets) {
                         TicketList.addItem(t.getPrice());
 
                         sum += t.getPrice();
 
-                        if(t.getPrice()>highest){
+                        if (t.getPrice() > highest) {
                             highest = t.getPrice();
 
-                            if(t.getPrice()<lowest){
+                            if (t.getPrice() < lowest) {
                                 lowest = t.getPrice();
                             }
                         }
@@ -88,10 +83,10 @@ public class FootballApp extends JFrame implements ActionListener{
 
                     }
 
-                     //Trying to display the most expensive ticket and the cheapest ticket//
+                    //Trying to display the most expensive ticket and the cheapest ticket//
 
-                    textArea.append("The highest ticket price is: " + String.format("%.2f",highest) + "\nThe lowest ticket Price is: " + String.format("%.2f",lowest) + "\n\nThe total Price is: " + "EUR" + String.format("%.2f", sum));
-                    JOptionPane.showMessageDialog(null,textArea, "Sales Analysis", INFORMATION_MESSAGE);
+                    textArea.append("The highest ticket price is: " + String.format("%.2f", highest) + "\nThe lowest ticket Price is: " + String.format("%.2f", lowest) + "\n\nThe total Price is: " + "EUR" + String.format("%.2f", sum));
+                    JOptionPane.showMessageDialog(null, textArea, "Sales Analysis", INFORMATION_MESSAGE);
 
                 }
 
@@ -100,41 +95,49 @@ public class FootballApp extends JFrame implements ActionListener{
         saveDataButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-            try{
-                SavaData();
-                JOptionPane.showMessageDialog(saveDataButton,"Users Data have been Saved");
-            } catch (IOException ex) {
-                throw new RuntimeException(ex);
-            }
+                try {
+
+
+                    File file = new File("BookingTickets.dat");
+                    if(file.exists()) {
+
+                        ObjectInputStream is = new ObjectInputStream(new FileInputStream(file));
+
+                        Tickets = (ArrayList<Ticket>) is.readObject();
+                        is.close();
+
+                        JOptionPane.showMessageDialog(null, file.getName() + " file loaded into the system", "Open", JOptionPane.INFORMATION_MESSAGE);
+                    }
+                    else{
+                        file.createNewFile();
+                        JOptionPane.showMessageDialog(null, "File created!!", "Created " + file.getName() + " file", JOptionPane.INFORMATION_MESSAGE);
+                    }
+                }
+                catch(ClassNotFoundException cce) {
+                    JOptionPane.showMessageDialog(null,"Class of object deserialised not a match for anything used in this application","Error",JOptionPane.ERROR_MESSAGE);
+                    cce.printStackTrace();
+                }
+                catch (FileNotFoundException fnfe) {
+                    JOptionPane.showMessageDialog(null,"File not found","Error",JOptionPane.ERROR_MESSAGE);
+                    fnfe.printStackTrace();
+                }
+                catch (IOException ioe) {
+                    JOptionPane.showMessageDialog(null,"Problem reading from the file","Error",JOptionPane.ERROR_MESSAGE);
+                    ioe.printStackTrace();
+                }
             }
         });
+//Learned file input and output from this YouTube video https://www.youtube.com/watch?v=typQHNak0Tk&t=1395s//
+
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setVisible(true);
     }
 
-    public void SavaData() throws IOException {
-        File f = new File("UserData.txt");
-        if(!f.exists()){
-            f.createNewFile();
-        }
-        BufferedReader br = new BufferedReader(new FileReader(f));
-        Object[] Lines = br.lines().toArray();
-        int i =0;
-        int id =0;
-        for(i=0;i < Lines.length;i++){
-            String Line = Lines[i].toString().trim();
-            String[] Row = Line.split(",");
-            id = Integer.parseInt(Row[0]);
-
-
-
-
-        }
-        FileWriter fw = new FileWriter(f,true);
-        BufferedWriter bw = new BufferedWriter(fw);
-        PrintWriter pw = new PrintWriter(bw);
-
-        pw.println(Tickets);
+    private void createSaveData() throws IOException {
+        ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream("BookingTickets.txt"));
+        os.writeObject(Tickets);
+        os.close();
     }
-
 
     private void createSetTicketMenu() {
         final String[] TicketList = {"A", "B", "C"};
@@ -193,6 +196,7 @@ public class FootballApp extends JFrame implements ActionListener{
         }
         JOptionPane.showMessageDialog(null,"Select Ticket to be removed","Remove Ticket",JOptionPane.INFORMATION_MESSAGE);
 
+
         JOptionPane.showMessageDialog(null,TicketList,"Remove Cuisine",JOptionPane.INFORMATION_MESSAGE);
 
         int SelectedTicket= TicketList.getSelectedIndex();
@@ -235,10 +239,6 @@ public class FootballApp extends JFrame implements ActionListener{
         // TODO: place custom component creation code here
     }
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-
-    }
 }
 
 
