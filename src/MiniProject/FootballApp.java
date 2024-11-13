@@ -1,4 +1,4 @@
-package MiniProject;
+
 
 import javax.swing.*;
 
